@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Collab Filtering Item based </title>
+</head>
+<body>
+    <h1>Collaborative Filtering (Item based) Recommendations</h1>
+<table border="1">
+<!-- here goes our data! -->
+</table>
+<div id="prodDetail"></div>
+<br>
+</body>
+<script>
+ function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+var sn = getParameterByName('scode');
+
+ var request = new XMLHttpRequest();
+            request.addEventListener("readystatechange", processRequest, false);
+
+            url = "http://127.0.0.1:8111/api/collabBasedItem"
+            request.open('POST', url, true);
+            request.setRequestHeader("Content-Type", "application/json"); 
+            request.timeout = 30000; // Set timeout to 30 seconds (30000 milliseconds)
+            request.ontimeout = function () { alert("Timed out!!!"); }
+            var data = JSON.stringify({"stockCode" : sn});
+            request.send(data);
+            
+            function processRequest(e){
+                if(request.readyState == 4 & request.status == 200){
+                    var body = document.getElementsByTagName("body")[0];
+                    var ourTable     = document.createElement("table");
+                    var ourTableBody = document.createElement("tbody");
+
+                    var response = JSON.parse(request.responseText);
+                    
+                    if(response.length > 0){
+                        var row = document.createElement("tr");
+                        var cell = document.createElement("td");
+                        var cellText = document.createTextNode("StockCode");
+                        cell.style.fontWeight = 900
+                        cell.appendChild(cellText);
+                        row.appendChild(cell);
+                           
+                        var cell = document.createElement("td");
+                        cellText = document.createTextNode("Description");
+                        cell.style.fontWeight = 900
+                        cell.appendChild(cellText);
+                        row.appendChild(cell);
+                            
+                        ourTableBody.appendChild(row);
+                        
+                        for (var i = 0; i <response.length; i++) {
+                            if(i != (response.length -1)){
+                            var row = document.createElement("tr");
+                            for (var j = 0; j <2; j++) {
+                              var cell = document.createElement("td");
+                              if(j==0){
+                                  var cellText = document.createTextNode(response[i].StockCode);
+                                }
+                               else if (j==1) {
+                                  var cellText = document.createTextNode(response[i].Description);
+                               }
+                              cell.appendChild(cellText);
+                              row.appendChild(cell);
+                            }
+                            ourTableBody.appendChild(row);
+                            }
+                        else{
+                            var productDesc = response[i];
+                                document.getElementById('prodDetail').innerHTML = productDesc;
+                        }
+                    }
+                    }
+                    ourTable.appendChild(ourTableBody);
+                    body.appendChild(ourTable);
+                    ourTable.setAttribute("border", "2");
+                }
+                else{
+                    document.write("<p> Error "+response.status+","+request.statusText);
+                }
+            }
+</script>
+<button onclick="history.go(-2)" style="position: absolute; left: 10%; right: 20%; bottom: 50%;">Go Back</button> 
+</html>

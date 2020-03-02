@@ -1,0 +1,257 @@
+The Recommender System model is configured on port 8111 in the RecommenderSystem.py file.
+
+Run the server (runs the application on localhost (127.0.0.1) port 8111) -
+Goto the location of the RecommenderSystem.py file and run the command
+>> python RecommenderSystem.py
+
+5 endpoints are exposed based on the different features of RecommenderSystem
+1. Popularity Based
+GET Method
+Endpoint - http://127.0.0.1:8111/api/popularItems/
+
+2. ContentBased
+POST Method
+Endpoint - http://127.0.0.1:8111/api/contentBased
+Request Body -
+{"stockCode" : "23292"}
+
+3. ItemBased Colloborative Filtering 
+POST Method 
+Endpoint - http://127.0.0.1:8111/api/collabBasedItem
+Request Body -
+{"stockCode" : "23292"}
+
+4. UserBased Colloborative Filtering 
+POST Method
+Endpoint - http://127.0.0.1:8111/api/collabBasedUser
+{"user_id": 12468}
+
+5. Hybrid based
+POST Method 
+Endpoint - http://127.0.0.1:8111/api/hybridBased
+Request Body -
+{"stockCode" : "23292"}
+
+Pls Note - On giving invalid data in the request will return popular Items
+
+Client -
+1. REST Client (POSTman) can be used to view the results
+2. mainPage.html - Javascript based web application can be used to visualize the results
+
+Results observed for the above endpoints from REST client -
+
+Popular Based Items
+[
+    {
+        "Description": "ASSORTED COLOURS SILK FAN",
+        "StockCode": "15036"
+    },
+    {
+        "Description": "POPART WOODEN PENCILS ASST",
+        "StockCode": "16045"
+    },
+    {
+        "Description": "WOODLAND CHARLOTTE BAG",
+        "StockCode": "20719"
+    },
+    {
+        "Description": "PACK OF 72 RETROSPOT CAKE CASES",
+        "StockCode": "21212"
+    },
+    {
+        "Description": "ROUND SNACK BOXES SET OF4 WOODLAND ",
+        "StockCode": "22326"
+    },
+    {
+        "Description": "REGENCY CAKESTAND 3 TIER",
+        "StockCode": "22423"
+    },
+    {
+        "Description": "PLASTERS IN TIN WOODLAND ANIMALS",
+        "StockCode": "22554"
+    },
+    {
+        "Description": "PACK OF 6 BIRDY GIFT TAGS",
+        "StockCode": "22585"
+    },
+    {
+        "Description": "SPACEBOY LUNCH BOX ",
+        "StockCode": "22629"
+    },
+    {
+        "Description": "JAM MAKING SET PRINTED",
+        "StockCode": "22961"
+    }
+]
+
+Content Based ItemBased
+[
+    {
+        "Description": "RED RETROSPOT CUP",
+        "StockCode": "21238"
+    },
+    {
+        "Description": "PINK  POLKADOT CUP",
+        "StockCode": "21239"
+    },
+    {
+        "Description": "BLUE POLKADOT CUP",
+        "StockCode": "21240"
+    },
+    {
+        "Description": "CHILDRENS APRON SPACEBOY DESIGN",
+        "StockCode": "22367"
+    },
+    {
+        "Description": "SPACEBOY CHILDRENS EGG CUP",
+        "StockCode": "22975"
+    },
+    {
+        "Description": "CIRCUS PARADE CHILDRENS EGG CUP ",
+        "StockCode": "22976"
+    },
+    {
+        "Description": "DOLLY GIRL CHILDRENS EGG CUP",
+        "StockCode": "22977"
+    },
+    {
+        "Description": "CHILDRENS CUTLERY SPACEBOY ",
+        "StockCode": "23256"
+    },
+    {
+        "Description": "SPACEBOY CHILDRENS BOWL",
+        "StockCode": "23290"
+    },
+    {
+        "Description": "DOLLY GIRL CHILDRENS CUP",
+        "StockCode": "23291"
+    },
+    "23292 - SPACEBOY CHILDRENS CUP"
+]
+
+Collab Based Items
+[
+    {
+        "Description": "SPACEBOY BIRTHDAY CARD",
+        "StockCode": "22029"
+    },
+    {
+        "Description": "SPACEBOY GIFT WRAP",
+        "StockCode": "22045"
+    },
+    {
+        "Description": "PLASTERS IN TIN SPACEBOY",
+        "StockCode": "22551"
+    },
+    {
+        "Description": "HEART WOODEN CHRISTMAS DECORATION",
+        "StockCode": "22574"
+    },
+    {
+        "Description": "CARD CIRCUS PARADE",
+        "StockCode": "22716"
+    },
+    {
+        "Description": "FELTCRAFT CHRISTMAS FAIRY",
+        "StockCode": "22940"
+    },
+    {
+        "Description": "BUNDLE OF 3 SCHOOL EXERCISE BOOKS  ",
+        "StockCode": "23190"
+    },
+    {
+        "Description": "SPACEBOY CHILDRENS BOWL",
+        "StockCode": "23290"
+    },
+    {
+        "Description": "DOLLY GIRL CHILDRENS CUP",
+        "StockCode": "23291"
+    },
+    {
+        "Description": "WRAP BIRD GARDEN ",
+        "StockCode": "23549"
+    },
+    "23292 - SPACEBOY CHILDRENS CUP"
+]
+
+Collab Based User
+[
+    {
+        "Description": "JUMBO BAG WOODLAND ANIMALS",
+        "StockCode": "20712"
+    },
+    {
+        "Description": "12 PENCILS TALL TUBE WOODLAND",
+        "StockCode": "20981"
+    },
+    {
+        "Description": "RETROSPOT PARTY BAG + STICKER SET",
+        "StockCode": "22333"
+    },
+    {
+        "Description": "PLASTERS IN TIN SPACEBOY",
+        "StockCode": "22551"
+    },
+    {
+        "Description": "PLASTERS IN TIN STRONGMAN",
+        "StockCode": "22555"
+    },
+    {
+        "Description": "HANGING QUILTED PATCHWORK APPLES",
+        "StockCode": "23433"
+    },
+    {
+        "Description": "WOODLAND SMALL BLUE FELT HEART",
+        "StockCode": "23474"
+    },
+    {
+        "Description": "WOODLAND SMALL PINK FELT HEART",
+        "StockCode": "23475"
+    },
+    "Product Recomendations for Customer - 12468"
+]
+
+Hybrid
+[
+    {
+        "Description": "SPACEBOY BIRTHDAY CARD",
+        "StockCode": "22029"
+    },
+    {
+        "Description": "SPACEBOY GIFT WRAP",
+        "StockCode": "22045"
+    },
+    {
+        "Description": "PLASTERS IN TIN SPACEBOY",
+        "StockCode": "22551"
+    },
+    {
+        "Description": "HEART WOODEN CHRISTMAS DECORATION",
+        "StockCode": "22574"
+    },
+    {
+        "Description": "CARD CIRCUS PARADE",
+        "StockCode": "22716"
+    },
+    {
+        "Description": "FELTCRAFT CHRISTMAS FAIRY",
+        "StockCode": "22940"
+    },
+    {
+        "Description": "BUNDLE OF 3 SCHOOL EXERCISE BOOKS  ",
+        "StockCode": "23190"
+    },
+    {
+        "Description": "SPACEBOY CHILDRENS BOWL",
+        "StockCode": "23290"
+    },
+    {
+        "Description": "DOLLY GIRL CHILDRENS CUP",
+        "StockCode": "23291"
+    },
+    {
+        "Description": "WRAP BIRD GARDEN ",
+        "StockCode": "23549"
+    },
+    "23292 - SPACEBOY CHILDRENS CUP"
+]

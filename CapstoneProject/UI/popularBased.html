@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Popularity based</title>
+</head>
+<body>
+    <h1>Popular Item Recommendations</h1>
+<table border="1">
+<!-- here goes our data! -->
+</table>
+</body>
+<script>
+            var request = new XMLHttpRequest();
+            request.addEventListener("readystatechange", processRequest, false);
+            request.open('GET', "http://127.0.0.1:8111/api/popularItems", true);
+
+            request.timeout = 30000; // Set timeout to 3 seconds (30000 milliseconds)
+            request.ontimeout = function () { alert("Timed out!!!"); }
+            request.send();
+
+            function processRequest(e){
+                if(request.readyState == 4 & request.status == 200){
+                    var body = document.getElementsByTagName("body")[0];
+                    var ourTable     = document.createElement("table");
+                    var ourTableBody = document.createElement("tbody");
+
+                    var response = JSON.parse(request.responseText);
+                    
+                    if(response.length > 0){
+                        var row = document.createElement("tr");
+                        var cell = document.createElement("td");
+                        var cellText = document.createTextNode("StockCode");
+                        cell.style.fontWeight = 900
+                        cell.appendChild(cellText);
+                        row.appendChild(cell);
+                           
+                        var cell = document.createElement("td");
+                        cellText = document.createTextNode("Description");
+                        cell.style.fontWeight = 900
+                        cell.appendChild(cellText);
+                        row.appendChild(cell);
+                            
+                        ourTableBody.appendChild(row);
+                        
+                        for (var i = 0; i <response.length; i++) {
+                            var row = document.createElement("tr");
+                            for (var j = 0; j <2; j++) {
+                              var cell = document.createElement("td");
+                              if(j==0){
+                                  var cellText = document.createTextNode(response[i].StockCode);
+                                }
+                               else if (j==1) {
+                                  var cellText = document.createTextNode(response[i].Description);
+                               }
+                              cell.appendChild(cellText);
+                              row.appendChild(cell);
+                            }
+                            ourTableBody.appendChild(row);
+                          }
+                    }
+                    ourTable.appendChild(ourTableBody);
+                    body.appendChild(ourTable);
+                    ourTable.setAttribute("border", "2");
+                }
+                else{
+                    document.write("<p> Error "+response.status+","+request.statusText);
+                }
+            }
+           
+function goBack() {
+  window.history.back();
+}
+</script>
+<button onclick="goBack()" style="position: absolute; left: 10%; right: 20%; bottom: 55%;">Go Back</button>
+</html>
